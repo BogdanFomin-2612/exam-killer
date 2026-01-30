@@ -12,7 +12,7 @@ if 'quiz_data' not in st.session_state:
 
 # --- 2. Сайдбар ---
 with st.sidebar:
-    st.header("🔑 Настройки")
+    st.header("🔑 Settings")
     api_key = st.text_input("API Key", type="password")
     
     # Выбор модели
@@ -22,22 +22,22 @@ with st.sidebar:
             genai.configure(api_key=api_key)
             models = [m.name for m in genai.list_models() if 'generateContent' in m.supported_generation_methods]
             if models:
-                selected_model = st.selectbox("Модель:", models, index=0)
+                selected_model = st.selectbox("Model:", models, index=0)
         except:
             pass
 
 # --- 3. Загрузка и Генерация ---
 st.title("🎓 Exam Killer")
 
-uploaded_file = st.file_uploader("Загрузи PDF", type="pdf")
+uploaded_file = st.file_uploader("Upload PDF", type="pdf")
 
 if uploaded_file is not None:
     # Кнопка генерации
-    if st.button("🚀 Сгенерировать новый тест"):
+    if st.button("🚀 Generate new test"):
         if not api_key:
-            st.error("Вставь API Key!")
+            st.error("Insert API Key!")
         else:
-            with st.spinner("Читаю файл и придумываю вопросы..."):
+            with st.spinner("Reading PDF and generating test..."):
                 try:
                     # Читаем PDF
                     reader = PdfReader(uploaded_file)
@@ -64,12 +64,12 @@ if uploaded_file is not None:
                     st.rerun() # Перезагружаем страницу, чтобы отобразить тест
 
                 except Exception as e:
-                    st.error(f"Ошибка: {e}")
+                    st.error(f"Error: {e}")
 
 # --- 4. Отображение Теста (Берем из памяти) ---
 if st.session_state['quiz_data']:
     st.write("---")
-    st.header("📝 Проверь себя")
+    st.header("📝 Check Your Answers")
     
     # Форма
     with st.form("quiz_form"):
@@ -80,10 +80,10 @@ if st.session_state['quiz_data']:
         for i, q in enumerate(st.session_state['quiz_data']):
             st.subheader(f"{i+1}. {q['question']}")
             # Сохраняем выбор пользователя
-            user_answers[i] = st.radio("Варианты:", q['options'], key=f"q_{i}")
+            user_answers[i] = st.radio("Answer options:", q['options'], key=f"q_{i}")
         
         # Кнопка проверки
-        submitted = st.form_submit_button("Проверить ответы")
+        submitted = st.form_submit_button("Check Your Answers")
         
         if submitted:
             for i, q in enumerate(st.session_state['quiz_data']):
@@ -92,16 +92,16 @@ if st.session_state['quiz_data']:
                 
                 if user_choice == correct_answer:
                     score += 1
-                    st.success(f"Вопрос {i+1}: Верно! ({user_choice})")
+                    st.success(f"Question {i+1}: Correct! ({user_choice})")
                 else:
-                    st.error(f"Вопрос {i+1}: Ошибка. Твой ответ: '{user_choice}', а верный ответ: '{correct_answer}'")
+                    st.error(f"Question {i+1}: Wrong. Your answer: '{user_choice}', correct answer: '{correct_answer}'")
             
             # Итог
             st.write("---")
             if score == 5:
                 st.balloons()
-                st.markdown(f"### 🏆 Идеально! {score}/5")
+                st.markdown(f"### 🏆 Perfect! {score}/5")
             elif score >= 3:
-                st.markdown(f"### 😐 Нормально. {score}/5")
+                st.markdown(f"### 😐 Not bad. {score}/5")
             else:
-                st.markdown(f"### 💀 Плохо. {score}/5")
+                st.markdown(f"### 💀 Bad. {score}/5")
