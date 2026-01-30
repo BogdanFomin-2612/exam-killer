@@ -1,13 +1,15 @@
-# Exam Killer: Turn your PDFs into Quizzes with AI 🧠
+Exam Killer - AI Study Assistant
 
-Stop reading boring lecture notes — start testing yourself! This application takes any PDF file (textbooks, research papers, or lecture slides), extracts the content, and uses Google's Gemini AI to generate a challenging multiple-choice quiz. It helps students and lifelong learners study more efficiently by using active recall.
+A Python-based Micro-SaaS prototype built with Streamlit and Google Generative AI SDK.
 
-Key Features:
+How it works:
 
-📂 PDF Upload: Drag & drop any text-based PDF.
+Ingestion: Parses PDF documents using pypdf to extract raw text.
 
-🤖 AI Generation: Uses Google Gemini (Flash models) to create unique questions every time.
+Processing: Sends structured prompts to the Gemini LLM to generate valid JSON output.
 
-⚡ Instant Feedback: Get immediate results with explanations for right/wrong answers.
+State Management: Utilizes Streamlit's session_state to handle quiz persistence and user interactions without page reloads.
 
-🔒 Secure: Bring your own API Key; no data is stored on the server.
+UI/UX: dynamic interface for taking the quiz and reviewing scores.
+
+Tech Stack: Python 3.10+, Streamlit, Google Gemini API, PyPDF.
