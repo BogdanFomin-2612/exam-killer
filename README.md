@@ -11,3 +11,9 @@ Key Features:
 ⚡ Instant Feedback: Get immediate results with explanations for right/wrong answers.
 
 🔒 Secure: Bring your own API Key; no data is stored on the server.
+
+[![Streamlit App](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://streamlit.io)
+[![Python](https://img.shields.io/badge/Python-3.10%2B-blue)](https://www.python.org/)
+[![Powered by Gemini](https://img.shields.io/badge/Powered%20by-Gemini%20AI-4285F4)](https://ai.google.dev/)
+
+Turn your study notes into interactive tests instantly.
