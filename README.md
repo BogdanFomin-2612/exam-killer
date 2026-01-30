@@ -1,4 +1,4 @@
-#🎓 Exam Killer: Turn your PDFs into Quizzes with AI 🧠
+# 🎓 Exam Killer: Turn your PDFs into Quizzes with AI 🧠
 
 Stop reading boring lecture notes — start testing yourself! This application takes any PDF file (textbooks, research papers, or lecture slides), extracts the content, and uses Google's Gemini AI to generate a challenging multiple-choice quiz. It helps students and lifelong learners study more efficiently by using active recall.
 
