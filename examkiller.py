@@ -11,20 +11,49 @@ if 'quiz_data' not in st.session_state:
     st.session_state['quiz_data'] = None
 
 # --- 2. Сайдбар ---
+# with st.sidebar:
+#     st.header("🔑 Settings")
+#     api_key = st.text_input("API Key", type="password")
+    
+#     # Выбор модели
+#     selected_model = "models/gemini-1.5-flash"
+#     if api_key:
+#         try:
+#             genai.configure(api_key=api_key)
+#             models = [m.name for m in genai.list_models() if 'generateContent' in m.supported_generation_methods]
+#             if models:
+#                 selected_model = st.selectbox("Model:", models, index=0)
+#         except:
+#             pass
+
+# --- 2. Сайдбар ---
 with st.sidebar:
     st.header("🔑 Settings")
-    api_key = st.text_input("API Key", type="password")
+    api_key = st.text_input("Enter your Gemini API Key", type="password")
     
-    # Выбор модели
+    # --- ИНСТРУКЦИЯ НА АНГЛИЙСКОМ ---
+    st.markdown("### ❓ How to get a key?")
+    st.markdown("""
+    1. Go to [Google AI Studio](https://aistudio.google.com/app/apikey).
+    2. Log in with your Google account.
+    3. Click **"Create API Key"**.
+    4. Copy the key and paste it above.
+    """)
+    st.caption("⚠️ It's free and takes 30 seconds.")
+    
+    st.divider() # Разделительная линия
+    
+    # Выбор модели (оставляем как было)
     selected_model = "models/gemini-1.5-flash"
     if api_key:
         try:
             genai.configure(api_key=api_key)
             models = [m.name for m in genai.list_models() if 'generateContent' in m.supported_generation_methods]
             if models:
-                selected_model = st.selectbox("Model:", models, index=0)
+                selected_model = st.selectbox("Select Model:", models, index=0)
         except:
-            pass
+            st.error("Invalid API Key")
+
 
 # --- 3. Загрузка и Генерация ---
 st.title("🎓 Exam Killer")
